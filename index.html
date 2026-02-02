@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NUR3011 Ethics & Law — AI-Gen Chatbot Project</title>
+  <meta name="description" content="An LLM AI-generated chatbot project for learning and teaching in NUR3011 Healthcare Ethics and Law, a collaboration between the Nursing & Health Care School and the School of Computing Science." />
+
+  <style>
+    :root{
+      --bg: #0b0f19;
+      --card: rgba(255,255,255,0.06);
+      --card2: rgba(255,255,255,0.09);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --faint: rgba(255,255,255,0.58);
+      --border: rgba(255,255,255,0.14);
+      --accent: #6ee7ff;
+      --accent2: #a78bfa;
+      --good: #34d399;
+      --warn: #fbbf24;
+      --danger: #fb7185;
+      --shadow: 0 12px 40px rgba(0,0,0,0.35);
+      --radius: 18px;
+      --max: 1100px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color: var(--text);
+      line-height:1.5;
+
+      background:
+        radial-gradient(1400px 900px at 15% 10%, rgba(110,231,255,0.18), transparent 65%),
+        radial-gradient(1200px 900px at 85% 20%, rgba(167,139,250,0.20), transparent 65%),
+        radial-gradient(1400px 900px at 50% 85%, rgba(52,211,153,0.14), transparent 70%),
+        linear-gradient(180deg, #070913 0%, #0b0f19 60%, #070913 100%);
+
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 44px; }
+
+    /* Top bar */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:650;
+      letter-spacing:0.2px;
+      white-space:nowrap;
+    }
+    .logo{
+      width:34px; height:34px; border-radius: 12px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(110,231,255,0.95), rgba(110,231,255,0.0) 62%),
+        radial-gradient(circle at 75% 40%, rgba(167,139,250,0.95), rgba(167,139,250,0.0) 58%),
+        radial-gradient(circle at 55% 80%, rgba(52,211,153,0.9), rgba(52,211,153,0.0) 60%),
+        rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+    }
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .nav a{
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover{
+      color: var(--text);
+      border-color: var(--border);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* Hero */
+    header.hero{
+      margin-top: 22px;
+      border-radius: calc(var(--radius) + 8px);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 360px at 20% 10%, rgba(110,231,255,0.20), transparent 60%),
+        radial-gradient(700px 360px at 80% 30%, rgba(167,139,250,0.18), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-inner{
+      position:relative;
+      padding: 34px 22px 26px;
+      display:grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 18px;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){
+      .hero-inner{ grid-template-columns: 1fr; }
+    }
+    .kicker{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-size: 13px;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      width: fit-content;
+    }
+    .pill{
+      font-size:12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.82);
+    }
+    h1{
+      margin: 14px 0 10px;
+      font-size: clamp(28px, 3.4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+    .lead{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 60ch;
+    }
+    .cta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      font-weight: 620;
+      font-size: 14px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.085); border-color: rgba(255,255,255,0.22); }
+    .btn.primary{
+      border-color: rgba(110,231,255,0.45);
+      background: linear-gradient(135deg, rgba(110,231,255,0.18), rgba(167,139,250,0.16));
+    }
+    .btn.primary:hover{
+      border-color: rgba(110,231,255,0.65);
+      background: linear-gradient(135deg, rgba(110,231,255,0.22), rgba(167,139,250,0.18));
+    }
+
+    /* Right panel */
+    .panel{
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      padding: 16px;
+    }
+    .panel h3{
+      margin: 0 0 8px;
+      font-size: 14px;
+      letter-spacing: 0.3px;
+      color: rgba(255,255,255,0.86);
+      text-transform: uppercase;
+    }
+    .mini{
+      display:grid;
+      gap:10px;
+    }
+    .mini .row{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      padding: 10px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.18);
+    }
+    .dot{
+      width:10px; height:10px; border-radius: 50%;
+      margin-top: 4px;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(110,231,255,0.12);
+      flex: 0 0 auto;
+    }
+    .dot.purple{ background: var(--accent2); box-shadow: 0 0 0 3px rgba(167,139,250,0.12); }
+    .dot.green{ background: var(--good); box-shadow: 0 0 0 3px rgba(52,211,153,0.12); }
+    .row b{ display:block; font-size:14px; margin-bottom:2px; }
+    .row span{ display:block; font-size:13px; color: var(--muted); }
+
+    /* Sections */
+    section{
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.20);
+    }
+    section h2{
+      margin:0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.18);
+      padding: 14px;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size: 15px;
+    }
+    .card p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .span-6{ grid-column: span 6; }
+    .span-7{ grid-column: span 7; }
+    .span-5{ grid-column: span 5; }
+    .span-4{ grid-column: span 4; }
+    .span-8{ grid-column: span 8; }
+    .span-12{ grid-column: span 12; }
+    @media (max-width: 900px){
+      .span-6,.span-7,.span-5,.span-4,.span-8{ grid-column: span 12; }
+    }
+
+    /* Lists */
+    ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    li{ margin: 6px 0; }
+
+    /* Callouts */
+    .callout{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.14);
+      background: linear-gradient(135deg, rgba(110,231,255,0.08), rgba(167,139,250,0.08));
+      padding: 14px;
+    }
+    .badges{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 8px; }
+    .badge{
+      font-size: 12px;
+      color: rgba(255,255,255,0.84);
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+
+    /* Footer */
+    footer{
+      margin-top: 18px;
+      color: var(--faint);
+      font-size: 13px;
+      padding: 6px 2px 0;
+      text-align:center;
+    }
+    .muted{ color: var(--muted); }
+    .tiny{ font-size: 12px; color: var(--faint); }
+
+    /* Simple "demo chat" */
+    .chat{
+      display:grid;
+      gap:10px;
+      margin-top: 10px;
+    }
+    .bubble{
+      max-width: 95%;
+      border-radius: 16px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.88);
+      font-size: 14px;
+    }
+    .bubble.user{
+      margin-left:auto;
+      background: rgba(110,231,255,0.10);
+      border-color: rgba(110,231,255,0.22);
+    }
+    .bubble.bot{
+      background: rgba(167,139,250,0.10);
+      border-color: rgba(167,139,250,0.22);
+    }
+    .bubble small{
+      display:block;
+      margin-top: 6px;
+      color: var(--faint);
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          NUR3011 Ethics & Law <span class="muted">·</span> LLM Chatbot Project
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Primary">
+        <a href="#overview">Overview</a>
+        <a href="#learning">Teaching Use</a>
+        <a href="#safety">Safety</a>
+        <a href="#collab">Collaboration</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+
+    <header class="hero" id="top">
+      <div class="hero-inner">
+        <div>
+          <div class="kicker">
+            <span class="pill">LLM + AI-Gen</span>
+            <span class="pill">Healthcare Ethics</span>
+            <span class="pill">Teaching & Learning</span>
+            <span class="pill" style="border-color:rgba(251,191,36,0.6); color:#fbbf24;">
+              Pilot Version · v0.1
+            </span>
+          </div>
+
+
+          <h1>
+            An AI-generated chatbot to support learning & teaching in
+            <span style="color:rgba(110,231,255,0.92)">NUR3011 Healthcare Ethics and Law</span>
+          </h1>
+
+          <p class="lead">
+            A collaborative project between the Nursing & Health Care School and the School of Computing Science,
+            designed to help students practice ethical reasoning, legal decision-making, and professional communication
+            through guided, scenario-based dialogue.
+          </p>
+
+          <div class="cta">
+            <a class="btn primary" href="#overview" role="button" aria-label="Explore the project">
+              Explore the project →
+            </a>
+            <a class="btn" href="#contact" role="button" aria-label="Get involved">
+              Get involved
+            </a>
+            <a class="btn" href="#learning" role="button" aria-label="See teaching use cases">
+              Teaching use cases
+            </a>
+          </div>
+        </div>
+
+        <aside class="panel" aria-label="Project at a glance">
+          <h3>At a glance</h3>
+          <div class="mini">
+            <div class="row">
+              <div class="dot"></div>
+              <div>
+                <b>What it is</b>
+                <span>LLM-powered tutor for ethics & law scenarios, feedback, and reflection prompts.</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="dot purple"></div>
+              <div>
+                <b>Who it’s for</b>
+                <span>NUR3011 students, tutors, and module teams supporting active learning.</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="dot green"></div>
+              <div>
+                <b>How it helps</b>
+                <span>Practice reasoning safely, get structured guidance, and improve academic confidence.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chat" aria-label="Example interaction">
+            <div class="bubble user">
+              “A patient refuses treatment, but the family insists. What should I do first?”
+              <small>Student prompt (scenario-based)</small>
+            </div>
+            <div class="bubble bot">
+              “Let’s clarify capacity and consent. What information do you have about the patient’s understanding and decision-making ability?”
+              <small>Chatbot guides with questions + framework</small>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <section id="overview">
+      <h2>Project overview</h2>
+      <div class="grid">
+        <div class="card span-7">
+          <h3>Purpose</h3>
+          <p>
+            Provide an interactive, AI-generated learning companion that reinforces key themes in healthcare ethics and law,
+            including professional responsibilities, consent, confidentiality, duty of care, and ethical decision-making in complex clinical contexts.
+          </p>
+        </div>
+        <div class="card span-5">
+          <h3>Design approach</h3>
+          <p>
+            Scenario-led dialogue, scaffolded prompting, and feedback aligned to module outcomes. Built for clarity, inclusivity,
+            and evidence-informed reflection.
+          </p>
+        </div>
+
+        <div class="card span-4">
+          <h3>Core features</h3>
+          <ul>
+            <li>Ethics & legal scenario simulations</li>
+            <li>Reasoning “checkpoints” and reflection prompts</li>
+            <li>Formative feedback and rubric-aligned guidance</li>
+            <li>Tutor mode for class discussion prompts</li>
+          </ul>
+        </div>
+        <div class="card span-4">
+          <h3>Learning modes</h3>
+          <ul>
+            <li>Self-study practice cases</li>
+            <li>Seminar discussion support</li>
+            <li>Revision Q&A and concept checks</li>
+            <li>Writing support (structure, tone, citations)</li>
+          </ul>
+        </div>
+        <div class="card span-4">
+          <h3>Outputs</h3>
+          <ul>
+            <li>Decision pathway summaries</li>
+            <li>Key principles & risks highlighted</li>
+            <li>“What to document” prompts</li>
+            <li>Next-step questions for clinicians</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="learning">
+      <h2>Teaching & learning use in NUR3011</h2>
+      <div class="grid">
+        <div class="card span-8">
+          <h3>How it fits into teaching</h3>
+          <p>
+            The chatbot is designed as a formative companion — not an answer key. It helps students build habits of
+            structured reasoning by prompting them to identify stakeholders, obligations, risks, and the relevant ethical/legal considerations.
+          </p>
+
+          <ul>
+            <li><b>Before class:</b> pre-seminar scenario walkthroughs to activate prior learning</li>
+            <li><b>In class:</b> tutor-led discussion prompts and “branching” case variations</li>
+            <li><b>After class:</b> guided reflection, revision, and practice for written responses</li>
+          </ul>
+        </div>
+
+        <div class="callout span-4">
+          <h3 style="margin:0 0 6px;">Example topics</h3>
+          <p class="muted" style="margin:0;">
+            Consent & capacity, confidentiality, documentation, safeguarding, end-of-life decision-making, professional conduct,
+            and ethical dilemmas in multidisciplinary teams.
+          </p>
+          <div class="badges" aria-label="Example topic badges">
+            <span class="badge">Consent</span>
+            <span class="badge">Capacity</span>
+            <span class="badge">Confidentiality</span>
+            <span class="badge">Duty of Care</span>
+            <span class="badge">Safeguarding</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="safety">
+      <h2>Safety, integrity & responsible use</h2>
+      <div class="grid">
+        <div class="card span-6">
+          <h3>Boundaries</h3>
+          <p>
+            The chatbot provides educational guidance only. It does not provide medical advice or legal advice,
+            and it encourages escalation to module materials, policies, and instructors where appropriate.
+          </p>
+          <ul>
+            <li>Clear “education-only” messaging and disclaimers</li>
+            <li>Encourages use of approved module sources</li>
+            <li>Prompts for uncertainty and appropriate escalation</li>
+          </ul>
+        </div>
+
+        <div class="card span-6">
+          <h3>Academic integrity</h3>
+          <p>
+            Designed to support learning without replacing student work. Responses encourage original thinking, correct citation practice,
+            and reflective writing rather than copy-and-paste outputs.
+          </p>
+          <ul>
+            <li>Rubric-aligned scaffolding and structure hints</li>
+            <li>Draft-improvement prompts, not final submission text</li>
+            <li>Transparency about limitations and model uncertainty</li>
+          </ul>
+        </div>
+
+        <div class="card span-12">
+          <h3>Privacy & governance</h3>
+          <p>
+            The project can be implemented with privacy-by-design principles (e.g., minimal data collection, anonymisation where relevant,
+            controlled access, and audit-friendly logging) aligned to institutional policies.
+          </p>
+          <p class="tiny">
+            Note: final deployment and data handling depend on institutional governance, hosting, and ethics approval requirements.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="collab">
+      <h2>Collaboration: Nursing & Health Care × Computing Science</h2>
+      <div class="grid">
+        <div class="card span-6">
+          <h3>Nursing & Health Care School</h3>
+          <ul>
+            <li>Defines learning outcomes and scenario content</li>
+            <li>Ensures alignment to ethics & legal teaching aims</li>
+            <li>Validates tone, professionalism, and clinical realism</li>
+            <li>Leads student experience and evaluation design</li>
+          </ul>
+        </div>
+        <div class="card span-6">
+          <h3>School of Computing Science</h3>
+          <ul>
+            <li>Builds the chatbot system and user experience</li>
+            <li>Implements guardrails, testing, and monitoring</li>
+            <li>Supports prompt design and iterative improvement</li>
+            <li>Enables analytics to measure learning impact</li>
+          </ul>
+        </div>
+
+        <div class="callout span-12">
+          <h3 style="margin:0 0 6px;">Deliverables (example)</h3>
+          <p class="muted" style="margin:0;">
+            Scenario library · tutor dashboard · student practice mode · rubric-aligned feedback templates · evaluation plan
+            (e.g., student perception, learning confidence, and assessment readiness).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="acknowledgement">
+      <h2>Acknowledgements</h2>
+
+      <div class="card span-12">
+        <p class="muted">
+          This project is developed with the support and contributions of colleagues across
+          the Nursing & Health Care School and the School of Computing Science.
+        </p>
+
+        <ul>
+          <li>
+            <b>M Kamala Devi</b> —
+            <a href="mailto:MKamala.Devi@glasgow.ac.uk">MKamala.Devi@glasgow.ac.uk</a>
+          </li>
+          <li>
+            <b>Peter C Y Yau</b> —
+            <a href="mailto:PeterCY.Yau@glasgow.ac.uk">PeterCY.Yau@glasgow.ac.uk</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="dev-team">
+      <h2>Development Team</h2>
+
+      <div class="card span-12">
+        <p class="muted">
+          System design, implementation, and prototyping were carried out by the following
+          student development team members:
+        </p>
+
+        <ul>
+          <li>
+            <b>TBC</b> —
+            <a href="tbc">tbc</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <section id="contact">
+      <h2>Contact / get involved</h2>
+      <div class="grid">
+        <div class="card span-8">
+          <h3>Interested in piloting or contributing?</h3>
+          <p>
+            We welcome educators, clinical tutors, and technical contributors to co-develop scenarios, test user flows,
+            and evaluate learning outcomes for NUR3011.
+          </p>
+          <ul>
+            <li>Co-create scenarios and marking-aligned guidance</li>
+            <li>Run a small pilot with feedback collection</li>
+            <li>Contribute to governance, ethics, and evaluation</li>
+          </ul>
+        </div>
+        <div class="card span-4">
+          <h3>Quick details</h3>
+          <p class="muted" style="margin:0 0 10px;">
+            Collaboration project between Nursing & Health Care School and School of Computing Science.
+          </p>
+          <p class="tiny" style="margin:0;">
+            Replace the placeholders below with your institutional contact details.
+          </p>
+          <div class="badges" style="margin-top:10px;">
+            <span class="badge">Module: NUR3011</span>
+            <span class="badge">Ethics & Law</span>
+            <span class="badge">LLM-enabled learning</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>
+        © <span id="year"></span>
+        University of Glasgow Singapore
+      </div>
+
+      <div class="tiny" style="margin-top:6px;">
+        This is an internal educational pilot project developed for learning and teaching purposes
+        within NUR3011 Healthcare Ethics and Law.
+        The content is provided for educational use only and does not constitute medical or legal advice.
+      </div>
+
+      <div class="tiny" style="margin-top:6px;">
+        All views expressed are those of the project team and do not necessarily reflect
+        the official views or policies of the University of Glasgow.
+      </div>
+
+      <div class="tiny" style="margin-top:6px;">
+        © University of Glasgow.
+        The University of Glasgow is a registered Scottish charity: Registration Number SC004401.
+      </div>
+
+      <div class="tiny" style="margin-top:8px;">
+        University of Glasgow Singapore branding and logo usage are subject to institutional
+        brand guidelines and approval.
+      </div>
+
+    </footer>
+
+  </div>
+
+  <script>
+    // Tiny enhancement: current year in footer.
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
