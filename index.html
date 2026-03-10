@@ -1,42 +1,51 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>NUR3011 Ethics & Law — AI-Gen Chatbot Project</title>
-  <meta name="description" content="An LLM AI-generated chatbot project for learning and teaching in NUR3011 Healthcare Ethics and Law, a collaboration between the Nursing & Health Care School and the School of Computing Science." />
+  <meta name="description"
+    content="An LLM AI-generated chatbot project for learning and teaching in NUR3011 Healthcare Ethics and Law, a collaboration between the Nursing & Health Care School and the School of Computing Science." />
 
   <style>
-    :root{
+    :root {
       --bg: #0b0f19;
-      --card: rgba(255,255,255,0.06);
-      --card2: rgba(255,255,255,0.09);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.72);
-      --faint: rgba(255,255,255,0.58);
-      --border: rgba(255,255,255,0.14);
+      --card: rgba(255, 255, 255, 0.06);
+      --card2: rgba(255, 255, 255, 0.09);
+      --text: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.72);
+      --faint: rgba(255, 255, 255, 0.58);
+      --border: rgba(255, 255, 255, 0.14);
       --accent: #6ee7ff;
       --accent2: #a78bfa;
       --good: #34d399;
       --warn: #fbbf24;
       --danger: #fb7185;
-      --shadow: 0 12px 40px rgba(0,0,0,0.35);
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
       --radius: 18px;
       --max: 1100px;
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color: var(--text);
-      line-height:1.5;
+      line-height: 1.5;
 
       background:
-        radial-gradient(1400px 900px at 15% 10%, rgba(110,231,255,0.18), transparent 65%),
-        radial-gradient(1200px 900px at 85% 20%, rgba(167,139,250,0.20), transparent 65%),
-        radial-gradient(1400px 900px at 50% 85%, rgba(52,211,153,0.14), transparent 70%),
+        radial-gradient(1400px 900px at 15% 10%, rgba(110, 231, 255, 0.18), transparent 65%),
+        radial-gradient(1200px 900px at 85% 20%, rgba(167, 139, 250, 0.20), transparent 65%),
+        radial-gradient(1400px 900px at 50% 85%, rgba(52, 211, 153, 0.14), transparent 70%),
         linear-gradient(180deg, #070913 0%, #0b0f19 60%, #070913 100%);
 
       background-repeat: no-repeat;
@@ -45,293 +54,634 @@
     }
 
 
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 44px; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 18px 44px;
+    }
 
     /* Top bar */
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
       padding: 12px 14px;
       border: 1px solid var(--border);
       border-radius: 999px;
-      background: rgba(255,255,255,0.04);
+      background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(10px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
     }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight:650;
-      letter-spacing:0.2px;
-      white-space:nowrap;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 650;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
     }
-    .logo{
-      width:34px; height:34px; border-radius: 12px;
+
+    .brand-short {
+      display: none;
+    }
+
+    .brand-full {
+      display: inline;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
       background:
-        radial-gradient(circle at 30% 30%, rgba(110,231,255,0.95), rgba(110,231,255,0.0) 62%),
-        radial-gradient(circle at 75% 40%, rgba(167,139,250,0.95), rgba(167,139,250,0.0) 58%),
-        radial-gradient(circle at 55% 80%, rgba(52,211,153,0.9), rgba(52,211,153,0.0) 60%),
-        rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+        radial-gradient(circle at 30% 30%, rgba(110, 231, 255, 0.95), rgba(110, 231, 255, 0.0) 62%),
+        radial-gradient(circle at 75% 40%, rgba(167, 139, 250, 0.95), rgba(167, 139, 250, 0.0) 58%),
+        radial-gradient(circle at 55% 80%, rgba(52, 211, 153, 0.9), rgba(52, 211, 153, 0.0) 60%),
+        rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
     }
-    .nav{
-      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
       font-size: 14px;
       color: var(--muted);
     }
-    .nav a{
+
+    .nav a {
       padding: 8px 10px;
       border-radius: 999px;
       border: 1px solid transparent;
     }
-    .nav a:hover{
+
+    .nav a:hover {
       color: var(--text);
       border-color: var(--border);
-      background: rgba(255,255,255,0.04);
+      background: rgba(255, 255, 255, 0.04);
     }
 
     /* Hero */
-    header.hero{
+    header.hero {
       margin-top: 22px;
       border-radius: calc(var(--radius) + 8px);
       border: 1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
       box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
+      overflow: hidden;
+      position: relative;
     }
-    .hero::before{
-      content:"";
-      position:absolute; inset:-2px;
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
       background:
-        radial-gradient(700px 360px at 20% 10%, rgba(110,231,255,0.20), transparent 60%),
-        radial-gradient(700px 360px at 80% 30%, rgba(167,139,250,0.18), transparent 60%);
-      pointer-events:none;
+        radial-gradient(700px 360px at 20% 10%, rgba(110, 231, 255, 0.20), transparent 60%),
+        radial-gradient(700px 360px at 80% 30%, rgba(167, 139, 250, 0.18), transparent 60%);
+      pointer-events: none;
     }
-    .hero-inner{
-      position:relative;
+
+    .hero-inner {
+      position: relative;
       padding: 34px 22px 26px;
-      display:grid;
+      display: grid;
       grid-template-columns: 1.4fr 1fr;
       gap: 18px;
-      align-items:stretch;
+      align-items: stretch;
     }
-    @media (max-width: 900px){
-      .hero-inner{ grid-template-columns: 1fr; }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
     }
-    .kicker{
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
+
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+      .wrap {
+        padding: 16px 14px 32px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 14px;
+        border-radius: 20px;
+      }
+
+      .brand {
+        justify-content: center;
+        font-size: 15px;
+      }
+
+      .nav {
+        justify-content: center;
+        gap: 6px;
+        font-size: 13px;
+      }
+
+      .nav a {
+        padding: 10px 12px;
+        flex: 0 0 auto;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-inner {
+        padding: 24px 16px 20px;
+        gap: 16px;
+      }
+
+      h1 {
+        font-size: clamp(24px, 7vw, 32px);
+      }
+
+      .lead {
+        font-size: 15px;
+      }
+
+      .kicker {
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .pill {
+        font-size: 11px;
+        padding: 4px 8px;
+      }
+
+      .btn {
+        width: 100%;
+        min-height: 48px;
+        padding: 12px 16px;
+        font-size: 15px;
+      }
+
+      section {
+        padding: 16px;
+        margin-top: 16px;
+      }
+
+      section h2 {
+        font-size: 20px;
+        margin-bottom: 14px;
+      }
+
+      .card {
+        padding: 14px;
+      }
+
+      .card h3 {
+        font-size: 16px;
+      }
+
+      .grid {
+        gap: 12px;
+      }
+
+      /* Hide "·" separator on mobile topbar */
+      .brand .muted {
+        display: none;
+      }
+
+      /* Mobile-friendly chat bubbles */
+      .bubble {
+        font-size: 14px;
+        padding: 12px 14px;
+      }
+
+      /* Mobile panel adjustments */
+      .panel {
+        padding: 14px;
+      }
+
+      .mini .row {
+        padding: 12px;
+      }
+    }
+
+    /* Small mobile devices */
+    @media (max-width: 480px) {
+      .wrap {
+        padding: 12px 10px 28px;
+      }
+
+      .topbar {
+        padding: 12px;
+      }
+
+      .brand {
+        font-size: 14px;
+        gap: 8px;
+        white-space: normal;
+      }
+
+      .brand-full {
+        display: none;
+      }
+
+      .brand-short {
+        display: inline !important;
+      }
+
+      .logo {
+        width: 28px;
+        height: 28px;
+      }
+
+      .nav {
+        gap: 4px;
+        font-size: 12px;
+      }
+
+      .nav a {
+        padding: 8px 10px;
+        font-size: 12px;
+      }
+
+      h1 {
+        font-size: clamp(22px, 7vw, 28px);
+        margin: 12px 0 8px;
+      }
+
+      .lead {
+        font-size: 14px;
+      }
+
+      section h2 {
+        font-size: 18px;
+      }
+
+      .card h3 {
+        font-size: 15px;
+      }
+
+      .card p, ul {
+        font-size: 13px;
+      }
+
+      .badge {
+        font-size: 11px;
+        padding: 5px 8px;
+      }
+    }
+
+    .kicker {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
       font-size: 13px;
       color: var(--muted);
       padding: 8px 12px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.04);
+      background: rgba(255, 255, 255, 0.04);
       width: fit-content;
     }
-    .pill{
-      font-size:12px;
+
+    .pill {
+      font-size: 12px;
       padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.82);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.82);
     }
-    h1{
+
+    h1 {
       margin: 14px 0 10px;
       font-size: clamp(28px, 3.4vw, 44px);
       line-height: 1.1;
       letter-spacing: -0.5px;
     }
-    .lead{
+
+    .lead {
       margin: 0 0 18px;
       color: var(--muted);
       font-size: 16px;
       max-width: 60ch;
     }
-    .cta{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
+
+    .cta {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
     }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap:10px;
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       padding: 10px 14px;
       border-radius: 12px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--text);
       font-weight: 620;
       font-size: 14px;
-      box-shadow: 0 10px 22px rgba(0,0,0,0.22);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
       transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,0.085); border-color: rgba(255,255,255,0.22); }
-    .btn.primary{
-      border-color: rgba(110,231,255,0.45);
-      background: linear-gradient(135deg, rgba(110,231,255,0.18), rgba(167,139,250,0.16));
+
+    .btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.085);
+      border-color: rgba(255, 255, 255, 0.22);
     }
-    .btn.primary:hover{
-      border-color: rgba(110,231,255,0.65);
-      background: linear-gradient(135deg, rgba(110,231,255,0.22), rgba(167,139,250,0.18));
+
+    .btn.primary {
+      border-color: rgba(110, 231, 255, 0.45);
+      background: linear-gradient(135deg, rgba(110, 231, 255, 0.18), rgba(167, 139, 250, 0.16));
+    }
+
+    .btn.primary:hover {
+      border-color: rgba(110, 231, 255, 0.65);
+      background: linear-gradient(135deg, rgba(110, 231, 255, 0.22), rgba(167, 139, 250, 0.18));
     }
 
     /* Right panel */
-    .panel{
+    .panel {
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       padding: 16px;
     }
-    .panel h3{
+
+    .panel h3 {
       margin: 0 0 8px;
       font-size: 14px;
       letter-spacing: 0.3px;
-      color: rgba(255,255,255,0.86);
+      color: rgba(255, 255, 255, 0.86);
       text-transform: uppercase;
     }
-    .mini{
-      display:grid;
-      gap:10px;
+
+    .mini {
+      display: grid;
+      gap: 10px;
     }
-    .mini .row{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
+
+    .mini .row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
       padding: 10px 10px;
       border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.18);
     }
-    .dot{
-      width:10px; height:10px; border-radius: 50%;
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
       margin-top: 4px;
       background: var(--accent);
-      box-shadow: 0 0 0 3px rgba(110,231,255,0.12);
+      box-shadow: 0 0 0 3px rgba(110, 231, 255, 0.12);
       flex: 0 0 auto;
     }
-    .dot.purple{ background: var(--accent2); box-shadow: 0 0 0 3px rgba(167,139,250,0.12); }
-    .dot.green{ background: var(--good); box-shadow: 0 0 0 3px rgba(52,211,153,0.12); }
-    .row b{ display:block; font-size:14px; margin-bottom:2px; }
-    .row span{ display:block; font-size:13px; color: var(--muted); }
+
+    .dot.purple {
+      background: var(--accent2);
+      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.12);
+    }
+
+    .dot.green {
+      background: var(--good);
+      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.12);
+    }
+
+    .row b {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .row span {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+    }
 
     /* Sections */
-    section{
+    section {
       margin-top: 22px;
       padding: 18px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.04);
-      box-shadow: 0 10px 26px rgba(0,0,0,0.20);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.20);
     }
-    section h2{
-      margin:0 0 10px;
+
+    section h2 {
+      margin: 0 0 10px;
       font-size: 18px;
       letter-spacing: -0.2px;
     }
-    .grid{
-      display:grid;
+
+    .grid {
+      display: grid;
       grid-template-columns: repeat(12, 1fr);
       gap: 12px;
     }
-    .card{
+
+    .card {
       border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.18);
       padding: 14px;
     }
-    .card h3{
-      margin:0 0 8px;
+
+    .card h3 {
+      margin: 0 0 8px;
       font-size: 15px;
     }
-    .card p{
-      margin:0;
+
+    .card p {
+      margin: 0;
       color: var(--muted);
       font-size: 14px;
     }
-    .span-6{ grid-column: span 6; }
-    .span-7{ grid-column: span 7; }
-    .span-5{ grid-column: span 5; }
-    .span-4{ grid-column: span 4; }
-    .span-8{ grid-column: span 8; }
-    .span-12{ grid-column: span 12; }
-    @media (max-width: 900px){
-      .span-6,.span-7,.span-5,.span-4,.span-8{ grid-column: span 12; }
+
+    .span-6 {
+      grid-column: span 6;
+    }
+
+    .span-7 {
+      grid-column: span 7;
+    }
+
+    .span-5 {
+      grid-column: span 5;
+    }
+
+    .span-4 {
+      grid-column: span 4;
+    }
+
+    .span-8 {
+      grid-column: span 8;
+    }
+
+    .span-12 {
+      grid-column: span 12;
+    }
+
+    @media (max-width: 900px) {
+
+      .span-6,
+      .span-7,
+      .span-5,
+      .span-4,
+      .span-8 {
+        grid-column: span 12;
+      }
+    }
+
+    /* Mobile grid adjustments */
+    @media (max-width: 768px) {
+      .span-12 {
+        grid-column: span 12;
+      }
     }
 
     /* Lists */
-    ul{
+    ul {
       margin: 10px 0 0;
       padding-left: 18px;
       color: var(--muted);
       font-size: 14px;
     }
-    li{ margin: 6px 0; }
+
+    li {
+      margin: 6px 0;
+    }
 
     /* Callouts */
-    .callout{
+    .callout {
       border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,0.14);
-      background: linear-gradient(135deg, rgba(110,231,255,0.08), rgba(167,139,250,0.08));
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: linear-gradient(135deg, rgba(110, 231, 255, 0.08), rgba(167, 139, 250, 0.08));
       padding: 14px;
     }
-    .badges{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 8px; }
-    .badge{
+
+    .badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .badge {
       font-size: 12px;
-      color: rgba(255,255,255,0.84);
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(255,255,255,0.06);
+      color: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
       border-radius: 999px;
       padding: 6px 10px;
     }
 
     /* Footer */
-    footer{
+    footer {
       margin-top: 18px;
       color: var(--faint);
       font-size: 13px;
       padding: 6px 2px 0;
-      text-align:center;
+      text-align: center;
     }
-    .muted{ color: var(--muted); }
-    .tiny{ font-size: 12px; color: var(--faint); }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .tiny {
+      font-size: 12px;
+      color: var(--faint);
+    }
 
     /* Simple "demo chat" */
-    .chat{
-      display:grid;
-      gap:10px;
+    .chat {
+      display: grid;
+      gap: 10px;
       margin-top: 10px;
     }
-    .bubble{
+
+    .bubble {
       max-width: 95%;
       border-radius: 16px;
       padding: 10px 12px;
-      border: 1px solid rgba(255,255,255,0.12);
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.88);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.88);
       font-size: 14px;
     }
-    .bubble.user{
-      margin-left:auto;
-      background: rgba(110,231,255,0.10);
-      border-color: rgba(110,231,255,0.22);
+
+    .bubble.user {
+      margin-left: auto;
+      background: rgba(110, 231, 255, 0.10);
+      border-color: rgba(110, 231, 255, 0.22);
     }
-    .bubble.bot{
-      background: rgba(167,139,250,0.10);
-      border-color: rgba(167,139,250,0.22);
+
+    .bubble.bot {
+      background: rgba(167, 139, 250, 0.10);
+      border-color: rgba(167, 139, 250, 0.22);
     }
-    .bubble small{
-      display:block;
+
+    .bubble small {
+      display: block;
       margin-top: 6px;
       color: var(--faint);
       font-size: 12px;
+    }
+
+    /* Architecture diagram */
+    pre {
+      margin: 0;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    /* Image responsiveness */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Improve touch targets on mobile */
+    @media (hover: none) {
+      .btn:active {
+        transform: scale(0.97);
+      }
+
+      .nav a:active {
+        background: rgba(255, 255, 255, 0.08);
+      }
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Prevent horizontal scroll on mobile */
+    body {
+      overflow-x: hidden;
     }
   </style>
 </head>
@@ -342,12 +692,15 @@
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          NUR3011 Ethics & Law <span class="muted">·</span> LLM Chatbot Project
+          NUR3011 Ethics & Law <span class="muted">·</span> <span class="brand-full">LLM Chatbot Project</span><span class="brand-short" style="display: none;">Chatbot</span>
         </div>
       </div>
 
       <nav class="nav" aria-label="Primary">
         <a href="#overview">Overview</a>
+        <a href="#tech-architecture">Technical</a>
+        <a href="#software-features">Features</a>
+        <a href="#demo">Demo</a>
         <a href="#learning">Teaching Use</a>
         <a href="#safety">Safety</a>
         <a href="#collab">Collaboration</a>
@@ -424,7 +777,8 @@
               <small>Student prompt (scenario-based)</small>
             </div>
             <div class="bubble bot">
-              “Let’s clarify capacity and consent. What information do you have about the patient’s understanding and decision-making ability?”
+              “Let’s clarify capacity and consent. What information do you have about the patient’s understanding and
+              decision-making ability?”
               <small>Chatbot guides with questions + framework</small>
             </div>
           </div>
@@ -438,14 +792,17 @@
         <div class="card span-7">
           <h3>Purpose</h3>
           <p>
-            Provide an interactive, AI-generated learning companion that reinforces key themes in healthcare ethics and law,
-            including professional responsibilities, consent, confidentiality, duty of care, and ethical decision-making in complex clinical contexts.
+            Provide an interactive, AI-generated learning companion that reinforces key themes in healthcare ethics and
+            law,
+            including professional responsibilities, consent, confidentiality, duty of care, and ethical decision-making
+            in complex clinical contexts.
           </p>
         </div>
         <div class="card span-5">
           <h3>Design approach</h3>
           <p>
-            Scenario-led dialogue, scaffolded prompting, and feedback aligned to module outcomes. Built for clarity, inclusivity,
+            Scenario-led dialogue, scaffolded prompting, and feedback aligned to module outcomes. Built for clarity,
+            inclusivity,
             and evidence-informed reflection.
           </p>
         </div>
@@ -487,7 +844,8 @@
           <h3>How it fits into teaching</h3>
           <p>
             The chatbot is designed as a formative companion — not an answer key. It helps students build habits of
-            structured reasoning by prompting them to identify stakeholders, obligations, risks, and the relevant ethical/legal considerations.
+            structured reasoning by prompting them to identify stakeholders, obligations, risks, and the relevant
+            ethical/legal considerations.
           </p>
 
           <ul>
@@ -500,7 +858,8 @@
         <div class="callout span-4">
           <h3 style="margin:0 0 6px;">Example topics</h3>
           <p class="muted" style="margin:0;">
-            Consent & capacity, confidentiality, documentation, safeguarding, end-of-life decision-making, professional conduct,
+            Consent & capacity, confidentiality, documentation, safeguarding, end-of-life decision-making, professional
+            conduct,
             and ethical dilemmas in multidisciplinary teams.
           </p>
           <div class="badges" aria-label="Example topic badges">
@@ -533,7 +892,8 @@
         <div class="card span-6">
           <h3>Academic integrity</h3>
           <p>
-            Designed to support learning without replacing student work. Responses encourage original thinking, correct citation practice,
+            Designed to support learning without replacing student work. Responses encourage original thinking, correct
+            citation practice,
             and reflective writing rather than copy-and-paste outputs.
           </p>
           <ul>
@@ -546,11 +906,13 @@
         <div class="card span-12">
           <h3>Privacy & governance</h3>
           <p>
-            The project can be implemented with privacy-by-design principles (e.g., minimal data collection, anonymisation where relevant,
+            The project can be implemented with privacy-by-design principles (e.g., minimal data collection,
+            anonymisation where relevant,
             controlled access, and audit-friendly logging) aligned to institutional policies.
           </p>
           <p class="tiny">
-            Note: final deployment and data handling depend on institutional governance, hosting, and ethics approval requirements.
+            Note: final deployment and data handling depend on institutional governance, hosting, and ethics approval
+            requirements.
           </p>
         </div>
       </div>
@@ -581,7 +943,8 @@
         <div class="callout span-12">
           <h3 style="margin:0 0 6px;">Deliverables (example)</h3>
           <p class="muted" style="margin:0;">
-            Scenario library · tutor dashboard · student practice mode · rubric-aligned feedback templates · evaluation plan
+            Scenario library · tutor dashboard · student practice mode · rubric-aligned feedback templates · evaluation
+            plan
             (e.g., student perception, learning confidence, and assessment readiness).
           </p>
         </div>
@@ -611,20 +974,225 @@
     </section>
 
     <section id="dev-team">
-      <h2>Development Team</h2>
+      <h2>Development Team - Group H1</h2>
 
       <div class="card span-12">
         <p class="muted">
           System design, implementation, and prototyping were carried out by the following
-          student development team members:
+          Group H1 development team member:
         </p>
 
         <ul>
           <li>
-            <b>TBC</b> —
-            <a href="tbc">tbc</a>
+            <b>Urias francis Paul John Bato</b> —
+            <a href="mailto:3070691U@student.gla.ac.uk">3070691U@student.gla.ac.uk</a>
+          </li>
+          <li>
+            <b>Chuang Jun Hao</b> —
+            <a href="mailto:3070632C@student.gla.ac.uk">3070632C@student.gla.ac.uk</a>
+          </li>
+          <li>
+            <b>Chue Zen Whye</b> —
+            <a href="mailto:3070631C@student.gla.ac.uk">3070631C@student.gla.ac.uk</a>
+          </li>
+          <li>
+            <b>Teo Zhi Kai</b> —
+            <a href="mailto:3070661T@student.gla.ac.uk">3070661T@student.gla.ac.uk</a>
           </li>
         </ul>
+      </div>
+    </section>
+
+    <section id="tech-architecture">
+      <h2>Technical Architecture - Group H1</h2>
+      <div class="grid">
+        <div class="card span-6">
+          <h3>Backend Stack</h3>
+          <p>
+            <b>Python/FastAPI</b> backend with RESTful API endpoints for chat and knowledge base management.
+            Uses <b>OpenAI GPT-3.5-turbo</b> for natural language generation and Socratic dialogue.
+          </p>
+          <ul>
+            <li>FastAPI web framework with async support</li>
+            <li>Uvicorn ASGI server for production deployment</li>
+            <li>Pydantic models for request/response validation</li>
+            <li>Python-dotenv for environment configuration</li>
+          </ul>
+        </div>
+
+        <div class="card span-6">
+          <h3>Frontend Stack</h3>
+          <p>
+            <b>Next.js 16</b> with TypeScript and Tailwind CSS for a modern, responsive user interface.
+            Uses App Router and static export for optimal performance.
+          </p>
+          <ul>
+            <li>React 18 with TypeScript for type safety</li>
+            <li>Tailwind CSS for utility-first styling</li>
+            <li>React Hook Form + Zod for form validation</li>
+            <li>localStorage for conversation persistence</li>
+          </ul>
+        </div>
+
+        <div class="card span-6">
+          <h3>RAG System</h3>
+          <p>
+            Retrieval-Augmented Generation using <b>OpenAI text-embedding-3-large</b> for semantic search
+            across nursing ethics knowledge bases.
+          </p>
+          <ul>
+            <li>Vector embeddings for content retrieval</li>
+            <li>Cosine similarity matching (K=20 guidelines, K=3 case studies)</li>
+            <li>Pre-computed embeddings stored as JSON</li>
+            <li>Real-time retrieval during chat interactions</li>
+          </ul>
+        </div>
+
+        <div class="card span-6">
+          <h3>Knowledge Base</h3>
+          <p>
+            Comprehensive collection of nursing ethics resources including professional codes,
+            bioethical principles, and clinical case studies.
+          </p>
+          <ul>
+            <li>Code for Nurses and Midwives (Singapore)</li>
+            <li>Bioethical principles (Autonomy, Beneficence, Non-maleficence, Justice)</li>
+            <li>Clinical case studies collection</li>
+            <li>Advance Medical Directive (AMD) guidelines</li>
+          </ul>
+        </div>
+
+        <div class="callout span-12">
+          <div
+            style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.25);">
+            <img src="src/H1_Sys_Arch.png" alt="PSD Nurse Chatbot System Architecture Diagram"
+              style="width: 100%; height: auto; display: block;" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="software-features">
+      <h2>Software Features - Group H1</h2>
+      <div class="grid">
+        <div class="card span-4">
+          <h3>Socratic Method Dialogue</h3>
+          <p>
+            Guides students through ethical reasoning with probing questions rather than direct answers.
+            Encourages critical thinking and self-discovery of ethical principles.
+          </p>
+        </div>
+
+        <div class="card span-4">
+          <h3>RAG-Powered Responses</h3>
+          <p>
+            Retrieves relevant content from nursing ethics knowledge bases using semantic search.
+            Ensures responses are grounded in authoritative sources.
+          </p>
+        </div>
+
+        <div class="card span-4">
+          <h3>Dual Query Modes</h3>
+          <p>
+            <b>Ethics mode:</b> Socratic questioning for ethical dilemmas.
+            <b>Law mode:</b> Direct answers with legal references (auto-detected from query).
+          </p>
+        </div>
+
+        <div class="card span-4">
+          <h3>Conversation Management</h3>
+          <p>
+            Create, switch, and manage multiple chat sessions. Conversations are persisted locally
+            in the browser for continuity across sessions.
+          </p>
+        </div>
+
+        <div class="card span-4">
+          <h3>Knowledge Base Selection</h3>
+          <p>
+            Choose from multiple ethics resources including nursing codes, bioethical principles,
+            case studies, and legal frameworks.
+          </p>
+        </div>
+
+        <div class="card span-4">
+          <h3>Real-time Chat Interface</h3>
+          <p>
+            Responsive UI with message history, typing indicators, and mobile-first design.
+            Built with Next.js and Tailwind CSS for optimal performance.
+          </p>
+        </div>
+
+        <div class="callout span-12">
+          <h3 style="margin:0 0 6px;">Technical Highlights</h3>
+          <div class="badges">
+            <span class="badge">OpenAI GPT-3.5-turbo</span>
+            <span class="badge">Vector Embeddings (text-embedding-3-large)</span>
+            <span class="badge">Python FastAPI</span>
+            <span class="badge">Next.js 16 + TypeScript</span>
+            <span class="badge">RAG Retrieval (K=20+3)</span>
+            <span class="badge">Tailwind CSS</span>
+            <span class="badge">React Hook Form + Zod</span>
+            <span class="badge">localStorage Persistence</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo">
+      <h2>Demo Showcase - Group H1</h2>
+      <div class="grid">
+        <div class="card span-12">
+          <h3>30-Second Demo Video</h3>
+          <p class="muted">
+            Watch a quick demonstration of the NUR3011 Ethics & Law Chatbot in action,
+            showcasing the Socratic dialogue method and RAG-powered responses.
+          </p>
+
+          <div
+            style="margin-top: 18px; border-radius: var(--radius); border: 1px solid var(--border); background: rgba(0,0,0,0.3); padding: 60px 20px; text-align: center;">
+            <div style="font-size: 48px; margin-bottom: 12px; opacity: 0.3;">🎬</div>
+            <p style="font-size: 18px; font-weight: 600; color: var(--muted); margin: 0;">
+              Video Coming Soon
+            </p>
+            <p style="font-size: 14px; color: var(--faint); margin: 10px 0 0;">
+              A 30-second showcase demonstrating the chatbot's Socratic questioning approach,
+              RAG retrieval, and real-time conversation interface will be added here.
+            </p>
+          </div>
+
+          <div style="margin-top: 18px;">
+            <p><b>WIP: Demo will showcase:</b></p>
+            <ul>
+              <li>Student asking an ethical dilemma question</li>
+              <li>Chatbot responding with guided Socratic questions</li>
+              <li>RAG system retrieving relevant nursing ethics guidelines</li>
+              <li>Real-time conversation flow and interface responsiveness</li>
+              <li>Knowledge base selection and conversation management</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dev-team-h2">
+      <h2>Development Team - Group H2</h2>
+
+      <div class="card span-12">
+        <p class="muted">
+          Group H2 development team information will be added here.
+        </p>
+
+        <div
+          style="margin-top: 18px; padding: 30px; text-align: center; border-radius: 14px; border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.18);">
+          <div style="font-size: 36px; margin-bottom: 8px; opacity: 0.4;">👥</div>
+          <p style="font-size: 16px; font-weight: 600; color: var(--muted); margin: 0;">
+            TBC - Coming Soon
+          </p>
+          <p style="font-size: 13px; color: var(--faint); margin: 8px 0 0;">
+            Group H2 team member information, technical contributions, and features will be added here.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -697,4 +1265,5 @@
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
+
 </html>
