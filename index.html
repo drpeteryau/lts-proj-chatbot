@@ -4,9 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>NUR3011 Ethics & Law — AI-Gen Chatbot Project</title>
+  <title>NUR3011 Ethics & Law — AI Chatbot Project</title>
   <meta name="description"
-    content="An LLM AI-generated chatbot project for learning and teaching in NUR3011 Healthcare Ethics and Law, a collaboration between the Nursing & Health Care School and the School of Computing Science." />
+    content="An LLM AI-powered chatbot project for learning and teaching in NUR3011 Healthcare Ethics and Law, a collaboration between the Nursing & Health Care School and the School of Computing Science." />
 
   <style>
     :root {
@@ -1217,9 +1217,10 @@
         </div>
         <div class="card span-6">
           <h3>RAG System</h3>
-          <p>Retrieval-Augmented Generation using <b>LlamaIndex</b> with <b>HuggingFace BGE embeddings</b> (<code>BAAI/bge-small-en-v1.5</code>) for semantic search across nursing ethics PDFs and course materials.</p>
+          <p>Retrieval-Augmented Generation using <b>LlamaIndex</b> and <b>Groq (Llama-3.3-70b-versatile)</b> with <b>HuggingFace BGE embeddings</b> (<code>BAAI/bge-small-en-v1.5</code>) for semantic search across nursing ethics PDFs and course materials.</p>
           <ul>
             <li>LlamaIndex VectorStoreIndex with top-K=3 retrieval</li>
+            <li>Groq LLM (<code>Llama-3.3-70b-versatile</code>) for response generation via API</li>
             <li>Dual vector store support: ChromaDB (local) or MongoDB Atlas</li>
             <li>Custom PDF reader using PyPDF for text-only extraction</li>
             <li>Recursive document loading from .pdf, .txt, .docx, .pptx, .html</li>
@@ -1252,6 +1253,15 @@
             <span class="badge">Vanilla JS / HTML / CSS</span>
           </div>
         </div>
+
+        <div class="callout span-12">
+          <div
+            style="border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.25);">
+            <img src="src/H2_Sys_Arch.png" alt="PSD Nurse Chatbot System Architecture Diagram"
+              style="width: 100%; height: auto; display: block;" />
+          </div>
+        </div>
+
       </div>
     </section>
 
